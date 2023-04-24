@@ -7,6 +7,13 @@ import { useState, useEffect } from 'react';
 
 function App () {
 
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const promise = getOrders();
+    promise.then(data => setOrders(data.orders));
+  }, []);
+
   return (
     <main className="App">
       <header>
