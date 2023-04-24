@@ -1,7 +1,7 @@
 describe('As a user, I should be able to input my burrito order into the form and see my order with my name and ingredients I chose on the page after I click submit', () => {
     beforeEach(() => {
         cy.intercept('GET', 'http://localhost:3001/api/v1/orders', {fixture: 'all-orders.json'});
-        cy.intercept('POST', 'http://localhost:3001/api/v1/orders', {fixture: 'new-order.json'})
+        cy.intercept('POST', 'http://localhost:3001/api/v1/orders', {fixture: 'new-order.json'});
         cy.visit('http://localhost:3000/');
     });
 
