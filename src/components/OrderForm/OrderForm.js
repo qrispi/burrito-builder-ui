@@ -36,6 +36,11 @@ function OrderForm ({addOrder}) {
   const clearInputs = () => {
     setFormInputs({name: '', ingredients: []});
     setNoneSelectedMsg('');
+    setDisabled( 
+      possibleIngredients.reduce((acc, ingred) => {
+      acc[ingred] = false;
+      return acc;
+    }, {}));
   }
 
   const clearMsg = () => {
