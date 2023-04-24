@@ -22,11 +22,14 @@ function OrderForm () {
     setFormInputs({...formInputs, name: e.target.value});
   }
 
+  const handleIngredientChange = e => {
+    setFormInputs({...formInputs, ingredients: [...formInputs.ingredients, e.target.value]});
+  }
+
   const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
   const ingredientButtons = possibleIngredients.map(ingredient => {
     return (
-      // onClick={e => handleIngredientChange(e)}
-      <button key={ingredient} name={ingredient} >
+      <button key={ingredient} name={ingredient} onClick={e => handleIngredientChange(e)}>
         {ingredient}
       </button>
     )
