@@ -16,7 +16,7 @@ function App () {
 
   const addOrder = (newOrder) => {
     const promise = postOrder(newOrder);
-    promise.then(data => console.log(data));
+    promise.then(response => setOrders([...orders, response]));
   }
 
   return (
@@ -25,11 +25,9 @@ function App () {
         <h1>Burrito Builder</h1>
         <OrderForm addOrder={addOrder}/>
       </header>
-
       <Orders orders={orders}/>
     </main>
   );
 }
-
 
 export default App;
