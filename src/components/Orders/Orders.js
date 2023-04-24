@@ -1,7 +1,7 @@
 import React from 'react';
 import './Orders.css';
 
-const Orders = ({orders, deleteOrder}) => {
+const Orders = ({orders, completeOrder}) => {
   const orderEls = orders.map((order, index) => {
     return (
       <div className="order" key={index}>
@@ -11,7 +11,7 @@ const Orders = ({orders, deleteOrder}) => {
             return <li key={index}>{ingredient}</li>
           })}
         </ul>
-        <button onClick={() => deleteOrder(order.id)}>Complete Order</button>
+        <button onClick={() => completeOrder(order.id)}>Complete Order</button>
       </div>
     )
   });
