@@ -21,7 +21,7 @@ function App () {
         <OrderForm />
       </header>
 
-      {/* <Orders orders={this.state.orders}/> */}
+      <Orders orders={orders}/>
     </main>
   );
 }
