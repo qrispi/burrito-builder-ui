@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useState } from 'react';
 
 function OrderForm () {
 
-  const [orderForm, setOrderForm] = useState({
+  const [formInputs, setFormInputs] = useState({
     name: '',
     ingredients: []
   })
@@ -15,8 +15,13 @@ function OrderForm () {
   }
 
   const clearInputs = () => {
-    setOrderForm({name: '', ingredients: []});
+    setFormInputs({name: '', ingredients: []});
   }
+
+  const updateInputs = e => {
+    setFormInputs({...formInputs, [e.target.name]: e.target.value})
+  }
+
   const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
   const ingredientButtons = possibleIngredients.map(ingredient => {
     return (
@@ -33,13 +38,13 @@ function OrderForm () {
         type='text'
         placeholder='Name'
         name='name'
-        value={orderForm.name}
+        value={formInputs.name}
         // onChange={e => handleNameChange(e)}
       />
 
       { ingredientButtons }
 
-      <p>Order: { orderForm.ingredients.join(', ') || 'Nothing selected' }</p>
+      <p>Order: { formInputs.ingredients.join(', ') || 'Nothing selected' }</p>
 
       <button onClick={e => handleSubmit(e)}>
         Submit Order
