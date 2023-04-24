@@ -18,8 +18,8 @@ function OrderForm () {
     setFormInputs({name: '', ingredients: []});
   }
 
-  const updateInputs = e => {
-    setFormInputs({...formInputs, [e.target.name]: e.target.value})
+  const handleNameChange = e => {
+    setFormInputs({...formInputs, name: e.target.value});
   }
 
   const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
@@ -39,7 +39,7 @@ function OrderForm () {
         placeholder='Name'
         name='name'
         value={formInputs.name}
-        // onChange={e => handleNameChange(e)}
+        onChange={e => handleNameChange(e)}
       />
 
       { ingredientButtons }
