@@ -3,23 +3,18 @@ import { useState } from 'react';
 
 function OrderForm () {
 
-  const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
   const [formInputs, setFormInputs] = useState({
     name: '',
     ingredients: []
   });
 
-  const [disabled, setDisabled] = useState(
-    possibleIngredients.reduce((acc, ingred) => {
-      acc[ingred] = false
-      return acc
-    }, {})
-  )
-
 
   const handleSubmit = e => {
     e.preventDefault();
-    clearInputs();
+    if(formInputs.name && formInputs.ingredients.length > 0) {
+      console.log("ORDER SUBMITTED")
+      clearInputs();
+    }
   }
 
   const clearInputs = () => {
@@ -34,12 +29,12 @@ function OrderForm () {
   const handleIngredientChange = e => {
     e.preventDefault();
     setFormInputs({...formInputs, ingredients: [...formInputs.ingredients, e.target.name]});
-    setDisabled({...disabled, [e.target.name]: true})
   }
 
+  const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
   const ingredientButtons = possibleIngredients.map(ingredient => {
     return (
-      <button key={ingredient} name={ingredient} onClick={e => handleIngredientChange(e)} disabled={disabled[ingredient]}>
+      <button key={ingredient} name={ingredient} onClick={e => handleIngredientChange(e)}>
         {ingredient}
       </button>
     )
@@ -65,9 +60,7 @@ function OrderForm () {
 
       <button onClick={(e) => {
         e.preventDefault();
-        console.log(formInputs)
-        console.log(disabled)
-        }}>
+        console.log(formInputs)}}>
         Check State
       </button>
     </form>
