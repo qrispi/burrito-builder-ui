@@ -10,7 +10,9 @@ function OrderForm () {
 
 
   const handleSubmit = e => {
-    e.preventDefault();
+    if(formInputs.name) {
+      e.preventDefault();
+    }
     if(formInputs.name && formInputs.ingredients.length > 0) {
       console.log("ORDER SUBMITTED")
       clearInputs();
@@ -22,7 +24,6 @@ function OrderForm () {
   }
 
   const handleNameChange = e => {
-    e.preventDefault();
     setFormInputs({...formInputs, name: e.target.value});
   }
 
@@ -48,6 +49,7 @@ function OrderForm () {
         name='name'
         value={formInputs.name}
         onChange={e => handleNameChange(e)}
+        required
       />
 
       { ingredientButtons }
