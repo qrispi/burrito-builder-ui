@@ -19,11 +19,13 @@ function OrderForm () {
   }
 
   const handleNameChange = e => {
+    e.preventDefault();
     setFormInputs({...formInputs, name: e.target.value});
   }
 
   const handleIngredientChange = e => {
-    setFormInputs({...formInputs, ingredients: [...formInputs.ingredients, e.target.value]});
+    e.preventDefault();
+    setFormInputs({...formInputs, ingredients: [...formInputs.ingredients, e.target.name]});
   }
 
   const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
@@ -51,6 +53,12 @@ function OrderForm () {
 
       <button onClick={e => handleSubmit(e)}>
         Submit Order
+      </button>
+
+      <button onClick={(e) => {
+        e.preventDefault();
+        console.log(formInputs)}}>
+        Check State
       </button>
     </form>
   )
