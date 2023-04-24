@@ -75,7 +75,7 @@ function OrderForm ({addOrder}) {
 
       <p>Order: { formInputs.ingredients.join(', ') || 'Nothing selected' }</p>
 
-      <p>{noneSelectedMsg}</p>
+      <p className='none-selected-msg'>{noneSelectedMsg}</p>
 
       <button onClick={e => handleSubmit(e)}>
         Submit Order
