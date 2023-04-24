@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-function OrderForm () {
+function OrderForm ({addOrder}) {
 
   const [formInputs, setFormInputs] = useState({
     name: '',
@@ -15,6 +15,7 @@ function OrderForm () {
     }
     if(formInputs.name && formInputs.ingredients.length > 0) {
       console.log("ORDER SUBMITTED")
+      addOrder(formInputs);
       clearInputs();
     }
   }
