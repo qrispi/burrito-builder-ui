@@ -2,19 +2,32 @@ import React from 'react';
 import { useState } from 'react';
 
 function OrderForm ({addOrder}) {
+  
+  const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
+  
+  const [disabled, setDisabled] = useState(
+    possibleIngredients.reduce((acc, ingred) => {
+      acc[ingred] = false;
+      return acc;
+    }, {})
+  );
 
   const [formInputs, setFormInputs] = useState({
     name: '',
     ingredients: []
   });
 
+  const [noneSelectedMsg, setNoneSelectedMsg] = useState('');
 
   const handleSubmit = e => {
     if(formInputs.name) {
       e.preventDefault();
     }
+    if(formInputs.ingredients.length === 0) {
+      setNoneSelectedMsg('Please select at least one ingredient before submitting');
+      setTimeout(() => clearMsg(), 3000);
+    }
     if(formInputs.name && formInputs.ingredients.length > 0) {
-      console.log("ORDER SUBMITTED")
       addOrder(formInputs);
       clearInputs();
     }
@@ -22,6 +35,11 @@ function OrderForm ({addOrder}) {
 
   const clearInputs = () => {
     setFormInputs({name: '', ingredients: []});
+    setNoneSelectedMsg('');
+  }
+
+  const clearMsg = () => {
+    setNoneSelectedMsg('');
   }
 
   const handleNameChange = e => {
@@ -31,12 +49,12 @@ function OrderForm ({addOrder}) {
   const handleIngredientChange = e => {
     e.preventDefault();
     setFormInputs({...formInputs, ingredients: [...formInputs.ingredients, e.target.name]});
+    setDisabled({...disabled, [e.target.name]: true});
   }
 
-  const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
   const ingredientButtons = possibleIngredients.map(ingredient => {
     return (
-      <button key={ingredient} name={ingredient} onClick={e => handleIngredientChange(e)}>
+      <button key={ingredient} name={ingredient} onClick={e => handleIngredientChange(e)} disabled={disabled[ingredient]}>
         {ingredient}
       </button>
     )
@@ -57,14 +75,10 @@ function OrderForm ({addOrder}) {
 
       <p>Order: { formInputs.ingredients.join(', ') || 'Nothing selected' }</p>
 
+      <p>{noneSelectedMsg}</p>
+
       <button onClick={e => handleSubmit(e)}>
         Submit Order
-      </button>
-
-      <button onClick={(e) => {
-        e.preventDefault();
-        console.log(formInputs)}}>
-        Check State
       </button>
     </form>
   )
